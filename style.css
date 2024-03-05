@@ -11,17 +11,17 @@
     --a-fs: .7rem;    --a-fs-media: 1.1rem;
     --li-fs: .7rem;   --li-fs-media: 1.1rem;    
 
-    --clr-bg-main: #ddf1f1;
-    --clr-bg-pri: #a9e5e7;
+    --clr-bg-main: #232e4d;
+    --clr-bg-pri: #fee4ea;
     --clr-bg-sec: #f3fafa;
-    --clr-acc-main: #00bea6;
+    --clr-acc-main: #f23f49;
     --clr-acc-pri: #009885;
     --clr-acc-sec: #33cbb8;
     --clr-acc-thi: #d80000;
     --clr-acc-four: #ad0000;
     --clr-acc-fif: #e03333;
-    --clr-text-main: #67696a;
-    --clr-text-pri: #36454F;  
+    --clr-text-main: #232e4d;
+    --clr-text-pri: #67696a;  
     
     --shadow-color: #33cbb8;    
     --main-ff: 'Poppins', sans-serif;
@@ -44,7 +44,7 @@ html {
 body {
     font-family: var(--main-ff);
     font-size: var(--p-fs);
-    background: var(--clr-bg-main);
+    background: linear-gradient(300deg, var(--clr-bg-main), var(--clr-bg-main) 50%, var(--clr-bg-pri) 50%, var(--clr-bg-pri));
     color: var(--clr-text-main);
     width: 100%;
     min-height: 100vh;
@@ -106,22 +106,77 @@ img {
     transform-origin: center center; */
 
 /*===== BUTTONS =====*/
+.btns {
+    margin: .5rem 0;
+}
 
 .btn {
     display: inline-block;
-    background-color:  #fff;
+    background-color: #fff;
     color: var(--clr-text-main);
-    padding: .5rem 1.5rem;
+    padding: .7rem 1.5rem;
     font-weight: 600;
-    border: none;
+    border: 1px solid var(--clr-text-main);
     border-radius: 5px;
     cursor: pointer;
     white-space: nowrap;
     transition: .2s;
+    position: relative;
+    overflow: hidden;
+    will-change: transform;
 }
-  
+
 .btn:hover {
-    box-shadow: 0 10px 36px rgba(0, 0, 0, .15);
+    will-change: transform;
+}
+
+.btn:last-child:hover {
+    color: #fff;
+}
+
+.btn:last-child:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--clr-text-main);
+    transform: translate(0, -100%);
+    z-index: -1;
+    transition: transform 0.4s cubic-bezier(0.5, 1.6, 0.4, 0.7);
+}
+
+.btn:last-child:hover::before {
+    transform: translate(0, 0);
+}
+
+.btn:first-child {
+    background-color: var(--clr-text-main);
+    color: #fff;
+}
+
+.btn:first-child:hover {
+    color: var(--clr-text-main);
+}
+
+.btn:first-child:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    z-index: -1;
+    transition: transform 0.4s cubic-bezier(0.5, 1.6, 0.4, 0.7);
+    transform-origin: 0, 0;
+    transform: scaleX(0);
+
+}
+
+.btn:first-child:hover:before {
+    transform: scaleX(1);
 }
 
 .btn:active {
@@ -137,19 +192,21 @@ body {
 }
 
 .container {
-    min-width: 300px;
-    width: 90%;
+    min-width: 350px;
+    width: 550px;
     background-color: #fff;
     position: relative;
     animation: scaleUp 1s ease-in-out;
     transform-origin: center center;
-    box-shadow: 0px 8px 30px -10px var(--clr-acc-sec);
+    box-shadow: 0px 8px 30px -10px var(--clr-bg-main);
+    padding: 2rem;
 }
 
 header {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    gap: 1rem;
 }
 
 header > i {
@@ -157,16 +214,46 @@ header > i {
     font-size: 1rem;
     top: 1rem;
     right: 1rem;
+    cursor: pointer;
 }
 
 header .location {
     display: flex;
     align-items: center;
     gap: .5rem;
+    color: var(--clr-text-pri);
+}
+
+.column h5 {
+    color: var(--clr-text-pri);
 }
 
 main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    border: 1px solid lightgray;
+    border-radius: .5rem;
+    background-color: var(--clr-bg-sec);
+    position: relative;
+    z-index: 2;
+}
+
+header svg {
+    fill: var(--clr-acc-main);
+    margin-bottom: -6rem;
+    z-index: 1;
+    transition: .3s;
+}
+
+.container:hover svg {
+    margin-bottom: 0;
+}
+
+.container > .btn {
+    display: block;
+    width: min-content;
+    margin: 1rem auto 0;
+    border: none;
 }
